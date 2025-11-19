@@ -53,9 +53,8 @@ namespace JwtNoPackage.Controllers
             if (tokenInfo == null)
                 return Unauthorized();
 
-            var userToAuth = _db.Users.FirstOrDefault(x=> x.Id == tokenInfo.UserId);
 
-            if (userToAuth.RoleId != 1) return Unauthorized("Only Admins Can Register Users");
+            if (tokenInfo.RoleId != 1) return Unauthorized("Only Admins Can Register Users");
 
             user.Password = HashData(user.Password);
             _db.Users.Add(user);
